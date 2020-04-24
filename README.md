@@ -1,5 +1,6 @@
-# Master-Thesis-project
-Open Set Recognition in Semantic Segmentation
+# Master-Thesis-Project
+# Open Set Recognition in Semantic Segmentation
+
   Deep Neural Networks have recently shown great success in many machine learning domains and problems. Traditional machine learning models
 assume that the classes encountered during testing is always a subset of the
 classes encountered during training, or in other words, a closed set. However,
