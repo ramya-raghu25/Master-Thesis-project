@@ -71,43 +71,44 @@ unknown.
 
 `Master-Thesis-Project`
 * `src`
-  * `sem_seg` - Semantic segmentation using PSPNet and Bayesian SegNet
-  * `reconstruction` - Image to image reconstruction from predicted labels
-  * `uosn` - Unknown Object Segmentation Network
-  * `paths.py` - Give respective directories
-  * `datasets` - Scripts for loading all datasets
+  * `sem_seg` - Semantic segmentation using PSPNet and Bayesian SegNet.
+  * `reconstruction` - Image to image reconstruction from predicted labels.
+  * `uosn` - Unknown Object Segmentation Network.
+  * `paths.py` - Give respective directories.
+  * `datasets` - Scripts for loading all datasets. Download the following:
     * `Lost and Found dataset` - [Lost and Found](http://www.6d-vision.com/lostandfounddataset)
     * `Cityscapes dataset` - [Cityscapes dataset](https://www.cityscapes-dataset.com/)
     * `MSCOCO dataset` - [MSCOCO](http://cocodataset.org/#home)
     * `NYU Depth dataset` - [NYU Depth Dataset](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)
- 
+
+* `training_script` - Contains training scripts for all the networks and for compressing images. 
 
 ## Dataset pre-processing
 
-The datasets were used in 1024x512 resolution, while the original formats are 2048x1024. The conversion scripts are available in [Master-Thesis-project/training_scripts](Master-Thesis-project/training_scripts).
+The datasets were used in 1024x512 resolution, while the original formats are 2048x1024. The conversion scripts are available in [Master-Thesis-project/training_scripts](training_scripts).
 The script needs a [webp encoder](https://anaconda.org/conda-forge/libwebp) and [imagemagick](https://imagemagick.org/index.php).
 
 
 ## Generate swapped labelled dataset
 
-To generate the swapped labelled dataset for training the 3 variants of UOSN, run [Master-Thesis-project/training_scripts/gen_swapped_data.py](Master-Thesis-project/training_scripts/gen_swapped_data.py)
+To generate the swapped labelled dataset for training the 3 variants of UOSN, run [Master-Thesis-project/training_scripts/gen_swapped_data.py](training_scripts/gen_swapped_data.py).
 
 
 ## Training the networks
 
-* To train the Semantic segmentation networks (PSPNet and Bayesian SegNet), run [Master-Thesis-project/training_scripts/semseg_train.py](Master-Thesis-project/training_scripts/semseg_train.py). The training scripts are taken from (https://github.com/zijundeng/pytorch-semantic-segmentation).
+* To train the Semantic segmentation networks (PSPNet and Bayesian SegNet), run [Master-Thesis-project/training_scripts/semseg_train.py](training_scripts/semseg_train.py). The training scripts are taken from (https://github.com/zijundeng/pytorch-semantic-segmentation).
 
-* To train the Pix2PixHD GAN, run [Master-Thesis-project/training_scripts/pix2pixHD_train.sh](Master-Thesis-project/training_scripts/pix2pixHD_train.sh). The training scripts are taken from (https://github.com/NVIDIA/pix2pixHD).
+* To train the Pix2PixHD GAN, run [Master-Thesis-project/training_scripts/pix2pixHD_train.sh](training_scripts/pix2pixHD_train.sh). The training scripts are taken from (https://github.com/NVIDIA/pix2pixHD).
 
-* To train all the 3 variants of UOSN using the swapped labelled dataset, run [Master-Thesis-project/training_scripts/train_uosn.py](Master-Thesis-project/training_scripts/train_uosn.py)
+* To train all the 3 variants of UOSN using the swapped labelled dataset, run [Master-Thesis-project/training_scripts/train_uosn.py](training_scripts/train_uosn.py).
 
-* Weights will be written to `exp_dir`. Checkpoints are saved every epoch as follows:
-  * `chk_best.pth` - Checkpoint with the lowest loss on eval set
-  * `chk_last.pth` - Checkpoint after the most recent epoch
-  * `optimizer.pth` - Optimizer data (momentum etc.) after the most recent epoch
+* Weights will be written to `exp_dir`. Checkpoints are saved at every epoch as follows:
+  * `chk_best.pth` - Checkpoint with the lowest loss on eval set.
+  * `chk_last.pth` - Checkpoint after the most recent epoch.
+  * `optimizer.pth` - Optimizer data (momentum etc.) after the most recent epoch.
   * `training.log` - Stores logs from the logging module. If the training procedure failed, the exception can be viewed here.
 
-*The loss is written to tensorboard and can be displayed in the following way:
+* The loss is written to tensorboard and can be displayed in the following way:
 
 ```bash
 	tensorboard --logdir $exp_dir/name_of_exp
@@ -116,9 +117,9 @@ To generate the swapped labelled dataset for training the 3 variants of UOSN, ru
 
 ## Running the experiment
 
-Simply run the script in [Master-Thesis-project/training_scripts/main.py](Master-Thesis-project/training_scripts/main.py). Specify the dataset to be used in dset (LAF or NYU) and the semantic segmentation network to be used in semseg_variants (PSPNet or BaysegNet).
+Simply run the script in [Master-Thesis-project/training_scripts/main.py](training_scripts/main.py). Specify the dataset to be used in *dset* (LAF or NYU) and the semantic segmentation network to be used in *semseg_variants* (PSPNet or BaysegNet).
 
 
 ## Results
 
-This folder contains the output images highlighting the unknown objectsfrom the experiments performed on Lost and Found and NYU dataset along with some failure cases. It also contains the AUROC performance curves for UOSN, UOSN architecture and few examples from the swapped labelled dataset.
+This folder contains the output images highlighting the unknown objects from the experiments performed on Lost and Found and NYU dataset, along with some failure cases. It also contains the AUROC performance curves for UOSN, UOSN architecture and a few examples from the swapped labelled dataset.
